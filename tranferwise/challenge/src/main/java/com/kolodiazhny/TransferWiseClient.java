@@ -1,10 +1,15 @@
 package com.kolodiazhny;
 
 
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientResponse;
+
+import javax.ws.rs.WebApplicationException;
+
 public class TransferWiseClient implements com.kolodiazhny.Client {
 
     private static final String INDIVIDUAL_TOKEN = "6ee5d540d9855947dee6040451089dd1c783f97b";
-    private static final String DESTINATION_URL = "http://bootcamp-api.transferwise.com";
+    private static final String REST_SERVICE_URL = "http://bootcamp-api.transferwise.com";
     private static final String TASK_PREFIX = "/service";
 
 
@@ -30,7 +35,7 @@ public class TransferWiseClient implements com.kolodiazhny.Client {
 
     private String get(String path) {
         String output = "";
-       /* try {
+        try {
             ClientConfig clientConfig = new DefaultClientConfig();
             clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
             Client client = Client.create(clientConfig);
@@ -44,7 +49,7 @@ public class TransferWiseClient implements com.kolodiazhny.Client {
             output = response.getEntity(String.class);
         } catch (Exception e) {
             output = "Internal exception: " + e.getMessage();
-        } */
+        }
         return output;
     }
 
