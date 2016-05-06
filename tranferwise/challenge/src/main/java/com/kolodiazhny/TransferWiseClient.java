@@ -18,8 +18,10 @@ public class TransferWiseClient implements Clientable {
     public static final String FINISH_COMMAND = "finish";
     public static final String SLASH = "/";
     public static final int TASK1 = 1;
+    public static final int TASK2 = 2;
     public static final String MY_NAME = "Oleksandr Kolodiazhnyi";
     public static final String TASK1_PARAMETER = "/name";
+    public static final String TASK2_PARAMETER = "/survivor";
 
 
     @Override
@@ -49,6 +51,8 @@ public class TransferWiseClient implements Clientable {
         if (taskId == TASK1) {
             result.append(post(TASK1_PARAMETER + SLASH + MY_NAME));
             result.append(get(TASK1_PARAMETER));
+        } else if (taskId == TASK2) {
+            result.append(post(TASK2_PARAMETER + SLASH + new Task2().getResult()));
         }
         return result.toString();
     }
