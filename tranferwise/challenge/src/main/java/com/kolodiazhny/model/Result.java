@@ -1,4 +1,4 @@
-package com.kolodiazhny.service;
+package com.kolodiazhny.model;
 
 
 public class Result {

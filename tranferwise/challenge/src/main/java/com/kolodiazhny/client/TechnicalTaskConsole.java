@@ -1,4 +1,6 @@
-package com.kolodiazhny;
+package com.kolodiazhny.client;
+
+import com.kolodiazhny.model.Currency;
 
 public class TechnicalTaskConsole {
     public static void main(String[] args) {
@@ -15,8 +17,14 @@ public class TechnicalTaskConsole {
 
         //----------- Task 2----
         //System.out.println(client.startTask(2));
+//        System.out.println(client.getCurrentTaskInfo());
+//        System.out.println(client.resolveTask(2));
+//        System.out.println(client.finishCurrentTask());
+
+        //----------- Task 3---
+        System.out.println(client.startTask(3));
         System.out.println(client.getCurrentTaskInfo());
-        System.out.println(client.resolveTask(2));
-        System.out.println(client.finishCurrentTask());
+        System.out.println(client.getInfo());
+
     }
 }

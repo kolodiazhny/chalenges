@@ -1,4 +1,4 @@
-package com.kolodiazhny;
+package com.kolodiazhny.client;
 
 
 public interface Clientable {

@@ -1,7 +1,8 @@
-package com.kolodiazhny.service;
+package com.kolodiazhny.utils;
 
 
 import com.google.gson.Gson;
+import com.kolodiazhny.model.Result;
 
 public class Util {
 

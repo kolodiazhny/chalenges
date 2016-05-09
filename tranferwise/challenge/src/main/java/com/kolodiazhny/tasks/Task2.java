@@ -1,12 +1,17 @@
-package com.kolodiazhny;
+package com.kolodiazhny.tasks;
 
 
 import java.util.ArrayList;
 
 public class Task2 {
+    public static final String TASK2_PARAMETER = "/survivor";
 
     public long getResult() {
         return remain(100);
+    }
+
+    public String getParameter() {
+        return TASK2_PARAMETER;
     }
 
     public static long remain(long total) {

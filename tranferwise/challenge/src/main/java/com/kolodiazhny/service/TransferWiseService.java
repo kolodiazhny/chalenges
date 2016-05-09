@@ -1,6 +1,7 @@
 package com.kolodiazhny.service;
 
-import com.kolodiazhny.TransferWiseClient;
+import com.kolodiazhny.client.TransferWiseClient;
+import com.kolodiazhny.dao.impl.ResultDaoJsonImpl;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -48,10 +49,8 @@ public class TransferWiseService {
         client.startTask(taskId);
         client.resolveTask(taskId);
         String json = client.finishCurrentTask();
-        Result rs = new Util().parse(json);
-        return rs.getResult() + "\n" +
-            rs.getPoints() + "\n" +
-            rs.getNextTask();
+        return new ResultDaoJsonImpl().getResult(json);
+
     }
 
 }

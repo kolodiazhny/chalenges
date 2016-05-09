@@ -1,6 +1,12 @@
-package com.kolodiazhny;
+package com.kolodiazhny.client;
 
 
+import com.kolodiazhny.dao.AccountDao;
+import com.kolodiazhny.dao.impl.AccountDaoJsonImpl;
+import com.kolodiazhny.model.Account;
+import com.kolodiazhny.tasks.Task1;
+import com.kolodiazhny.tasks.Task2;
+import com.kolodiazhny.tasks.Task3;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.filter.LoggingFilter;
 
@@ -16,13 +22,12 @@ public class TransferWiseClient implements Clientable {
     private static final String TASK_PREFIX = "/task";
     public static final String START_COMMAND = "start";
     public static final String FINISH_COMMAND = "finish";
+    public static final String GET_ALL_BANKS ="/bank";
+    private static final String GET_BANK_ACCOUNT ="/bankAccount" ;
     public static final String SLASH = "/";
     public static final int TASK1 = 1;
     public static final int TASK2 = 2;
-    public static final String MY_NAME = "Oleksandr Kolodiazhnyi";
-    public static final String TASK1_PARAMETER = "/name";
-    public static final String TASK2_PARAMETER = "/survivor";
-
+    private static final int TASK3 = 3;
 
     @Override
     public String getMainScreen() {
@@ -49,14 +54,27 @@ public class TransferWiseClient implements Clientable {
     public String resolveTask(int taskId) {
         StringBuilder result = new StringBuilder();
         if (taskId == TASK1) {
-            result.append(post(TASK1_PARAMETER + SLASH + MY_NAME));
-            result.append(get(TASK1_PARAMETER));
+            Task1 task = new Task1();
+            result.append(post(task.getParameter() + SLASH + task.getName()));
+            result.append(get(task.getParameter()));
         } else if (taskId == TASK2) {
-            result.append(post(TASK2_PARAMETER + SLASH + new Task2().getResult()));
+            Task2 task = new Task2();
+            result.append(post(task.getParameter() + SLASH + new Task2().getResult()));
+        } else if (taskId == TASK3) {
+            Task3 task = new Task3();
+            result.append(task.transfer());
         }
         return result.toString();
     }
 
+    public String getInfo() {
+        StringBuilder result = new StringBuilder();
+//        result.append(get(GET_ALL_BANKS));
+        result.append(get(GET_BANK_ACCOUNT));
+        AccountDao accountDao = new AccountDaoJsonImpl(result.toString());
+        Account account = accountDao.findById("5730e354e4b03f261fb2177d");
+        return account.getAccountName();
+    }
     @Override
     public String finishCurrentTask() {
         return post(TASK_PREFIX + SLASH + FINISH_COMMAND);
@@ -93,7 +111,7 @@ public class TransferWiseClient implements Clientable {
             }
             output = response.readEntity(String.class);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             output = "Internal exception: " + e.getMessage();
         }
         return output;
